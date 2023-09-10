@@ -1,5 +1,6 @@
 'use client'
 
+
 import {
   IconButton,
   Avatar,
@@ -32,15 +33,20 @@ import {
   FiBell,
   FiChevronDown,
 } from 'react-icons/fi'
+
+import { MdDashboard, MdHomeFilled, MdOutlineExplore, MdDataExploration, MdBuild } from "react-icons/md";
+
 import { IconType } from 'react-icons'
 
 interface LinkItemProps {
   name: string
   icon: IconType
+  href: string
 }
 
 interface NavItemProps extends FlexProps {
   icon: IconType
+  href: string
   children: React.ReactNode
 }
 
@@ -53,11 +59,11 @@ interface SidebarProps extends BoxProps {
 }
 
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Home', icon: FiHome },
-  { name: 'Trending', icon: FiTrendingUp },
-  { name: 'Explore', icon: FiCompass },
-  { name: 'Favourites', icon: FiStar },
-  { name: 'Settings', icon: FiSettings },
+  { name: 'Home', icon: MdHomeFilled, href: '/' },
+  { name: 'Dashboard', icon: MdDashboard, href: '/dashboard' },
+  { name: 'Explore', icon: MdOutlineExplore, href: '/explore' },
+  { name: 'Profile', icon: MdDataExploration, href: 'profile' },
+  { name: 'Settings', icon: MdBuild, href: 'settings' },
 ]
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
@@ -78,7 +84,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} href={link.href}>
           {link.name}
         </NavItem>
       ))}
@@ -86,11 +92,11 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   )
 }
 
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, children, href, ...rest }: NavItemProps) => {
   return (
     <Box
       as="a"
-      href="#"
+      href={href}
       style={{ textDecoration: 'none' }}
       _focus={{ boxShadow: 'none' }}>
       <Flex
